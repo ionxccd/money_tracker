@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Money Tree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+  rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@icon/themify-icons/themify-icons.css">
+
+  <script lang="js">
+
+  let amount = 2500;
+    function getLocal() {
+      document.getElementById('cA').innerHTML = amount;
+      if (typeof(Storage) !== "undefined") {
+        for (var i = 0; i < localStorage.length; i++){
+          console.log("STORAGE:\n")
+          console.log(localStorage.key(i))
+            // do something with localStorage.getItem(localStorage.key(i));
+        }
+      } else {
+        console.log("no localStorage support");
+      }
+    }
+
+    function inTotalSwitch(option){
+      // document.getElementById('cA').innerHTML = (amount/120).toFixed(2);
+      document.getElementById(option.id).className = "optionBoxSelected";
+
+      //Switches class name depending on button is clicked
+      //Need to switch amount shown
+      let thing = option.id != "inTotal" ?
+      (document.getElementById("inTotal").className = "optionsBox",
+      document.getElementById('cA').innerHTML = (amount/120).toFixed(2))
+       : (document.getElementById("perDay").className = "optionsBox",
+     document.getElementById('cA').innerHTML = amount);
+    }
+
+
+
+  </script>
+  </head>
+  <body onload="getLocal()">
+    <div class="foreGround">
+      <div class="mainWindow">
+        <div class="dateChangers">
+          <div class="optionsBox" id="inTotal" onclick="inTotalSwitch(inTotal)">In Total</div>
+          <div class="optionsBox" id="perDay" onclick="inTotalSwitch(perDay)">Per Day
+            <i class="ti ti-angle-down"></i>
+          </div>
+        </div>
+        <div class="amountDiv">
+          <p class="currentAmount">$</p>
+          <p class="currentAmount" id="cA"></p>
+        </div>
+        <div class="icon">
+          <i class="ti ti-plus"></i>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
+`
