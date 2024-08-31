@@ -1,20 +1,23 @@
 *{
-  padding: 0;
-  margin: 0
+  padding: 0px;
+  margin: 0px;
 }
 
-div{
+div, select, option{
   font-family: Ubuntu;
+  font-weight: bold;
 }
+
 
 .currentAmount{
-  font-size:50px;
+  font-size:60px;
 }
 
 .amountDiv{
   display: flex;
   justify-content: center;
   flex-direction: row;
+  margin-top: 5px
 }
 
 .foreGround{
@@ -22,8 +25,19 @@ div{
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #91bab3;
+  background-color: #2D3142;
 }
+
+.mainWindow{
+  flex: 0 0 35%;
+  width:20%;
+  height: 100vh;
+  background-color: #C7E8F3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 .dateChangers{
   display: flex;
@@ -32,12 +46,28 @@ div{
   align-content:center;
 }
 
-.dateChangers i{
-  margin-left: 5px;
+.dateChangers div select{
+  height: 300px;
+}
+
+select{
+  border-radius: 5px;
+  border: 1px solid #3498db;
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 10px;/
 }
 
 .optionsBox{
-  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 5px;
@@ -45,10 +75,12 @@ div{
   margin: 10px;
 }
 
-.optionsBox:hover{
-  background-color: #80b9ba;
+
+.optionsBox.active {
+    background-color: #2980b9;
 }
 
+/* Find out how to just add/remove style */
 .optionBoxSelected{
   background-color: green;
   padding-left: 20px;
@@ -58,23 +90,54 @@ div{
   margin: 10px;
 }
 
-.mainWindow{
-  flex: 0 0 30%;
-  width:20%;
-  background-color: red;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .icon{
-  border:solid;
+  border: solid;
   border-width: medium;
   border-radius: 100px;
-  padding:30px;
+  padding:20px;
   margin: 20px;
   width:fit-content;
 }
+
+.icon:hover{
+  /* background-color: #fff; */
+  opacity: 50%
+}
+
+.icon:active{
+  opacity: 30%
+}
+
+.ti-trash:hover{
+  opacity: 40%
+}
+
+.transactions{
+  /* margin: 10px; */
+  width: 50%;
+}
+
+.trans_title{
+  margin: 5px;
+  font-size: 25px;
+  text-align: left;
+}
+
+.trans_list{
+  height: 40vh;
+  overflow-y: auto;
+}
+
+.trans_list_item{
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin: 15px;
+}
+
+
 
 @media (max-width: 500px) {
   .foreGround {

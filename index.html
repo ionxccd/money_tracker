@@ -13,9 +13,66 @@
 
   <script lang="js">
 
-  let amount = 2500;
+  function getCurrentDate() {
+      const now = new Date();
+      return `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
+  }
+
+  // Parse date string in MM/DD/YYYY format
+  function parseDate(str) {
+      const [month, day, year] = str.split('/').map(Number);
+      return new Date(year, month - 1, day);
+  }
+
+  // Calculate difference in days between two dates
+  function dateDiff(first, second) {
+      const timeDiff = second.getTime() - first.getTime();
+      return Math.round(timeDiff / (1000 * 60 * 60 * 24));
+  }
+
+
+  let transaction_list = [
+      { "date": "4/1", "amount": "-15", "type": "neg" },
+      { "date": "4/2", "amount": "+200", "type": "pos" },
+      { "date": "4/3", "amount": "-30", "type": "neg" },
+      { "date": "4/4", "amount": "-8", "type": "neg" },
+      { "date": "4/5", "amount": "+75", "type": "pos" },
+      { "date": "4/6", "amount": "-22", "type": "neg" },
+      { "date": "4/7", "amount": "+150", "type": "pos" },
+      { "date": "4/8", "amount": "-45", "type": "neg" },
+      { "date": "4/9", "amount": "-12", "type": "neg" },
+      { "date": "4/10", "amount": "-10", "type": "neg" },
+      { "date": "4/11", "amount": "+50", "type": "pos" },
+      { "date": "4/12", "amount": "-25", "type": "neg" },
+      { "date": "4/13", "amount": "-5", "type": "neg" },
+      { "date": "4/14", "amount": "+100", "type": "pos" },
+      { "date": "4/15", "amount": "-18", "type": "neg" },
+      { "date": "4/16", "amount": "+80", "type": "pos" },
+      { "date": "4/17", "amount": "-33", "type": "neg" },
+      { "date": "4/18", "amount": "-7", "type": "neg" }
+    ]
+
+  let days_remaining = dateDiff(parseDate(getCurrentDate()), parseDate("12/20/2024"));
+
     function getLocal() {
+      // document.getElementById('inTotal').focus();
       document.getElementById('cA').innerHTML = amount;
+      document.getElementById('date').innerHTML = getCurrentDate();
+      document.getElementById('dayRemaing').innerHTML = "\n" + days_remaining
+
+      let new_item = "";
+      for (let i = 0; i < transaction_list.length; i++){
+        new_item += `
+          <div class="trans_list_item">
+          <p>${transaction_list[i].date}</p>
+          <p style="color:${transaction_list[i].type == "pos" ? "green" : "red"}">${transaction_list[i].amount}</p>
+          <i class="ti ti-trash" style="font-size:1em;color:red"></i>
+          </div>
+        `
+      }
+      document.getElementById('trans_list').innerHTML = new_item
+
+      //Unused rn (localStorage)
       if (typeof(Storage) !== "undefined") {
         for (var i = 0; i < localStorage.length; i++){
           console.log("STORAGE:\n")
@@ -27,42 +84,101 @@
       }
     }
 
-    function inTotalSwitch(option){
-      // document.getElementById('cA').innerHTML = (amount/120).toFixed(2);
-      document.getElementById(option.id).className = "optionBoxSelected";
-
-      //Switches class name depending on button is clicked
-      //Need to switch amount shown
-      let thing = option.id != "inTotal" ?
-      (document.getElementById("inTotal").className = "optionsBox",
-      document.getElementById('cA').innerHTML = (amount/120).toFixed(2))
-       : (document.getElementById("perDay").className = "optionsBox",
-     document.getElementById('cA').innerHTML = amount);
-    }
-
-
-
   </script>
   </head>
   <body onload="getLocal()">
     <div class="foreGround">
       <div class="mainWindow">
+        <!-- Format Switches Section -->
         <div class="dateChangers">
-          <div class="optionsBox" id="inTotal" onclick="inTotalSwitch(inTotal)">In Total</div>
-          <div class="optionsBox" id="perDay" onclick="inTotalSwitch(perDay)">Per Day
-            <i class="ti ti-angle-down"></i>
+          <div class="optionsBox active" id="inTotal" onclick="inTotalSwitch(inTotal)">
+            <div>In Total</div>
+            <i class="ti ti-time"></i>
           </div>
+          <select id="viewOption" onclick="inTotalSwitch(this.value)" size="4">
+              <option value="" selected disabled>Choose an option</option>
+              <option value="perDay">Per Day</option>
+              <option value="perWeek">Per Week</option>
+              <option value="perMonth">Per Month</option>
+          </select>
         </div>
+
+        <!-- Date and days remaining section -->
+        <div style="display:flex;flex-direction:row;font-size:20px">
+          <div style="font-weight:lighter" id="dayRemaing"></div>
+          <div style="font-weight:lighter">&nbsp;days left</div>
+        </div>
+        <div style="font-size:30px;font-weight:500" id="date"></div>
+
+        <!-- Current Money section -->
         <div class="amountDiv">
           <p class="currentAmount">$</p>
           <p class="currentAmount" id="cA"></p>
         </div>
+        <!-- Icon Section -->
         <div class="icon">
-          <i class="ti ti-plus"></i>
+          <i class="ti ti-plus" style="font-size:2em;"></i>
         </div>
+        <!-- Transactions Section -->
+        <div class="transactions">
+          <div class="trans_title">Transactions</div>
+          <hr style="border:3px solid black"/>
 
+          <div class="trans_list" id="trans_list">
+          </div>
+        </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+
+      let amount = 2500;
+
+      function inTotalSwitch(option){
+        if (option.id === "inTotal") {
+            console.log("selected")
+            document.getElementById("viewOption").style = ""
+            document.getElementById("inTotal").className = "optionsBox active"
+            document.getElementById('cA').innerHTML = amount
+            } else {
+                document.getElementById("inTotal").className = "optionsBox"
+                document.getElementById("viewOption").value = option;
+                // console.log(option)
+            }
+
+
+            // document.getElementById('cA').innerHTML = (amount/120).toFixed(2);
+            // document.getElementById(option.id).className = "optionBoxSelected";
+
+        //Switches class name depending on button is clicked
+        //Need to switch amount shown
+        //Dont need to set amount to add/remove because the only amount needed is the main
+
+        switch (option) {
+          case "perDay":
+            // document.getElementById("perDay").className = "optionsBox"
+            document.getElementById('cA').innerHTML = (amount/days_remaining).toFixed(2)
+            document.getElementById("viewOption").style = "background-color: #2980b9"
+            break;
+          case "perWeek":
+
+            // Work on this (show highlight css when cliked dropdown)
+            document.getElementById('cA').innerHTML = (amount/(days_remaining/7)).toFixed(2)
+            document.getElementById("viewOption").style = "background-color: #2980b9"
+            break;
+          case "perMonth":
+            // document.getElementById("perWeek").className = "optionsBox"
+            document.getElementById('cA').innerHTML = (amount/(days_remaining/30.44)).toFixed(2)
+            document.getElementById("viewOption").style = "background-color: #2980b9"
+            break;
+        }
+       //  let thing = option.id != "inTotal" ?
+       //  (document.getElementById("inTotal").className = "optionsBox",
+       //  document.getElementById('cA').innerHTML = (amount/120).toFixed(2))
+       //   : (document.getElementById("perDay").className = "optionsBox",
+       // document.getElementById('cA').innerHTML = amount);
+      }
+    </script>
   </body>
 </html>
 `
