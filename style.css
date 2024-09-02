@@ -1,78 +1,78 @@
 *{
-  padding: 0px;
-  margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 div, select, option{
-  font-family: Ubuntu;
-  font-weight: bold;
+    font-family: Ubuntu;
+    font-weight: bold;
 }
 
 
 .currentAmount{
-  font-size:60px;
+    font-size:60px;
 }
 
 .amountDiv{
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  margin-top: 5px
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 5px
 }
 
 .foreGround{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #2D3142;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #2D3142;
 }
 
 .mainWindow{
-  flex: 0 0 35%;
-  width:20%;
-  height: 100vh;
-  background-color: #C7E8F3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    flex: 0 0 35%;
+    width:20%;
+    height: 100vh;
+    background-color: #C7E8F3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 .dateChangers{
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-content:center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-content:center;
 }
 
 .dateChangers div select{
-  height: 300px;
+    height: 300px;
 }
 
 select{
-  border-radius: 5px;
-  border: 1px solid #3498db;
-  background-color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;/
+    border-radius: 5px;
+    border: 1px solid #3498db;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;/
 }
 
 .optionsBox{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
 }
 
 
@@ -82,75 +82,138 @@ select{
 
 /* Find out how to just add/remove style */
 .optionBoxSelected{
-  background-color: green;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;
-}
-
-.icon{
-  border: solid;
-  border-width: medium;
-  border-radius: 100px;
-  padding:20px;
-  margin: 20px;
-  width:fit-content;
-}
-
-.icon:hover{
-  /* background-color: #fff; */
-  opacity: 50%
-}
-
-.icon:active{
-  opacity: 30%
-}
-
-.ti-trash:hover{
-  opacity: 40%
-}
-
-.transactions{
-  /* margin: 10px; */
-  width: 50%;
-}
-
-.trans_title{
-  margin: 5px;
-  font-size: 25px;
-  text-align: left;
-}
-
-.trans_list{
-  height: 40vh;
-  overflow-y: auto;
-}
-
-.trans_list_item{
-  display: flex;
-  flex-direction: row;
-  font-size: 24px;
-  justify-content: space-between;
-  margin-top: 5px;
-  margin: 15px;
-}
-
-
-
-@media (max-width: 500px) {
-  .foreGround {
-      /* padding: 40px; */
-      background-color: red;
-  }
-
-  .optionsBox{
-    background-color: blue;
+    background-color: green;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
     margin: 10px;
-  }
+}
+
+.icon{
+    border: solid;
+    border-width: medium;
+    border-radius: 100px;
+    padding:20px;
+    margin: 20px;
+    width:fit-content;
+}
+
+.icon:hover{
+    /* background-color: #fff; */
+    opacity: 50%;
+    cursor: pointer;
+}
+
+.icon:active{
+    opacity: 30%
+}
+
+.ti-trash:hover{
+    opacity: 40%
+}
+
+.transactions{
+    /* margin: 10px; */
+    width: 50%;
+}
+
+.trans_title{
+    margin: 5px;
+    font-size: 25px;
+    text-align: left;
+}
+
+.trans_list{
+    height: calc(100vh - 400px);
+    overflow-y: auto;
+}
+
+.trans_list_item{
+    display: flex;
+    flex-direction: row;
+    font-size: 24px;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.dialogDiv{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    /* remeber to switch back */
+    display: block;
+    background-color: rgba(0,0,0,0.75);
+}
+
+dialog{
+    height: 20vh;
+    width:20vw;
+    z-index: 1000;
+    transition: opacity 250ms ease;
+
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.titleModalDiv{
+    display: flex;
+    justify-content:space-between;
+}
+
+.transAmountDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.transAmountDiv i{
+    border: solid 2px black;
+    border-radius: 100%;
+    padding: 5px;
+    margin-top:5px;
+    /* margin-right:5px; */
+    /* margin-left: -5px; */
+}
+
+.trans_button{
+    width: 80px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.modalDiv{
+    margin: 10px;
+}
+
+i{
+    cursor: pointer;
+}
+
+i.active {
+    background-color: green
+}
+
+@media (max-width: 500px) {
+    .foreGround {
+        /* padding: 40px; */
+        background-color: red;
+    }
+
+    .optionsBox{
+        background-color: blue;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin: 10px;
+    }
 }
